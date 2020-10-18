@@ -1,24 +1,103 @@
 <!--create.ejs-->
-<form action="/coupon/create" method="post">
 
-    <div class="field">
+<form action="/coupon/create" method="post">
+  <div class="columns">
+    <div class="column">
+      <div class="field">
         <label class="label">Title</label>
         <div class="control">
-            <input class="input" type="text" name="title" required>
+          <input class="input" type="text" name="title" required />
         </div>
-    </div>
+      </div>
 
-    <div class="field">
+      <div class="field">
         <label class="label">Restaurant</label>
         <div class="control">
-            <input class="input" type="number" name="restaurant" required>
+          <input class="input" type="text" name="restaurant" required />
         </div>
-    </div>
+      </div>
 
-    <div class="field">
+      <div class="columns">
+        <div class="column">
+          <label class="label">Region</label>
+          <div class="control">
+            <div class="select">
+              <select id="region">
+                <option value="hkisland">HK Island</option>
+                <option value="kowloon">Kowloon</option>
+                <option value="newterritories">New Territories</option>
+              </select>
+            </div>
+          </div>
+        </div>
+  
+        <div class="column">
+          <label class="label">Mall</label>
+          <div class="control">
+            <div class="select">
+              <select id="mall">
+                <option value="Avengers">Avengers</option>
+                <option value="JLA">Justice League</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Image</label>
         <div class="control">
-            <button class="button is-link" type="submit">Submit</button>
+          <input class="input" type="text" name="image" required />
         </div>
+      </div>
     </div>
 
+    <div class="column">
+
+      <div class="columns">
+        <div class="column">
+          <label class="label">Quota</label>
+          <div class="control">
+            <input class="input" type="number" name="quota" required />
+          </div>
+        </div>
+  
+        <div class="column">
+          <label class="label">Coins</label>
+          <div class="control">
+            <input class="input" type="number" name="coins" required />
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="field">
+        <label class="label">Expiry Date</label>
+        <div class="control">
+          <input class="input" type="date" name="exdate" required />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Detail</label>
+        <div class="control">
+          <textarea class="textarea" name="detail"></textarea>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <div class="control">
+            <button class="button is-link" type="submit">Submit</button>
+          </div>
+        </div>
+  
+        <div class="column">
+          <div class="control">
+            <button class="button is-danger" type="delete">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>

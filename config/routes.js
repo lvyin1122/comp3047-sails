@@ -21,6 +21,10 @@ module.exports.routes = {
 
   '/': { view: 'pages/homepage' },
 
+  // Create
+  'GET /coupon/create': 'CouponController.create',
+  'POST /coupon/create': 'CouponController.create',
+
 
   /***************************************************************************
   *                                                                          *
