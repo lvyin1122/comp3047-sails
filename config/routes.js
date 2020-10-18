@@ -19,7 +19,10 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': { view: 'pages/homepage' },
+  // '/': { view: 'pages/homepage' },
+
+  // Homepage
+  'GET /': 'CouponController.homepage',
 
   // Create
   'GET /coupon/create': 'CouponController.create',

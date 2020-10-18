@@ -6,6 +6,15 @@
  */
 
 module.exports = {
+    // action - homepage
+    homepage: async function (req, res) {
+
+        var allcoupons = await Coupon.find();
+        
+        return res.view('coupon/homepage', { coupons: allcoupons });
+    },
+
+
     // action - create
     create: async function (req, res) {
 
