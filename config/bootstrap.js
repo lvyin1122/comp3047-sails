@@ -27,4 +27,52 @@ module.exports.bootstrap = async function() {
   // ]);
   // ```
 
+  if (await Coupon.count() > 0) {
+    return;
+  }
+
+  await Coupon.createEach([
+      { title: "50% discount on Supreme Seafood Feast (for 2 persons)", 
+        restaurant: "Mango Tree",
+        region: "Kowloon",
+        mall: "Elements",
+        image: "https://3o7tpx32lt6v2lcovs4a53lb-wpengine.netdna-ssl.com/wp-content/uploads/2013/02/383579_314631368577671_1289868602_n-500x500.jpg",
+        quota: 500,
+        coins: 750,
+        exdate: "2020-12-31",
+        detail: "Orignal price: HK$790 per person."
+      },
+      { title: "50% discount on Supreme Seafood Feast (for 2 persons)", 
+        restaurant: "Mango Tree",
+        region: "Kowloon",
+        mall: "Elements",
+        image: "https://3o7tpx32lt6v2lcovs4a53lb-wpengine.netdna-ssl.com/wp-content/uploads/2013/02/383579_314631368577671_1289868602_n-500x500.jpg",
+        quota: 500,
+        coins: 750,
+        exdate: "2020-12-31",
+        detail: "Orignal price: HK$790 per person."
+      },
+      { title: "50% discount on Supreme Seafood Feast (for 2 persons)", 
+        restaurant: "Mango Tree",
+        region: "HK Island",
+        mall: "Elements",
+        image: "https://3o7tpx32lt6v2lcovs4a53lb-wpengine.netdna-ssl.com/wp-content/uploads/2013/02/383579_314631368577671_1289868602_n-500x500.jpg",
+        quota: 500,
+        coins: 750,
+        exdate: "2020-12-31",
+        detail: "Orignal price: HK$790 per person."
+      },
+      { title: "50% discount on Supreme Seafood Feast (for 2 persons)", 
+        restaurant: "Mango Tree",
+        region: "New Territories",
+        mall: "Elements",
+        image: "https://3o7tpx32lt6v2lcovs4a53lb-wpengine.netdna-ssl.com/wp-content/uploads/2013/02/383579_314631368577671_1289868602_n-500x500.jpg",
+        quota: 500,
+        coins: 750,
+        exdate: "2020-12-31",
+        detail: "Orignal price: HK$790 per person."
+      }
+      
+  ]);
+
 };

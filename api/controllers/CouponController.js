@@ -9,9 +9,44 @@ module.exports = {
     // action - homepage
     homepage: async function (req, res) {
 
-        var allcoupons = await Coupon.find();
+        var hkisland = await Coupon.find({
+            where: {region: "HK Island"},
+            sort: "exdate"
+        });
+
+        var kowloon = await Coupon.find({
+            where: {region: "Kowloon"},
+            sort: "exdate"
+
+        });
+
+        var nt = await Coupon.find({
+            where: {region: "New Territories"},
+            sort: "exdate"
+        });
+
+        hkisland = hkisland.slice(0, 2);
+        kowloon = kowloon.slice(0, 2);
+        nt = nt.slice(0, 2);
         
-        return res.view('coupon/homepage', { coupons: allcoupons });
+        return res.view(
+            'coupon/homepage', 
+            { coupons: [
+                {
+                    name: "HK Island",
+                    query: hkisland,
+                },
+                {
+                    name: "Kowloon",
+                    query: kowloon,
+                },
+                {
+                    name: "New Territories",
+                    query: nt,
+                }
+              ]
+            }
+        );
     },
 
 
