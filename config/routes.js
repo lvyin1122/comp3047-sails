@@ -22,11 +22,17 @@ module.exports.routes = {
   // '/': { view: 'pages/homepage' },
 
   // Homepage
-  'GET /': 'CouponController.homepage',
+  'GET /': 'CouponController.home',
 
   // Create
   'GET /coupon/create': 'CouponController.create',
   'POST /coupon/create': 'CouponController.create',
+
+  // Read
+  'GET /coupon/read/:id': 'CouponController.read',
+
+  // Admin
+  'GET /coupon/admin/': 'CouponController.admin',
 
 
   /***************************************************************************
