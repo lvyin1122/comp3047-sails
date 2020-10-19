@@ -34,6 +34,13 @@ module.exports.routes = {
   // Admin
   'GET /coupon/admin/': 'CouponController.admin',
 
+  // Update
+  'GET /coupon/update/:id': 'CouponController.update',
+  'POST /coupon/update/:id': 'CouponController.update',
+
+  // Delete
+  'POST /coupon/delete/:id': 'CouponController.delete',
+
 
   /***************************************************************************
   *                                                                          *

@@ -1,0 +1,129 @@
+<!--update.ejs-->
+
+<div class="content">
+    <p class="title is-size-1 has-text-weight-bold" style="font-family:'Candara'">Q-Pon</p>
+    <p class="subtitle is-size-4 has-text-weight-light">Redeem your coins for dining coupons.</p>
+  </div>
+  
+  <form id="updateform" action="/coupon/update/<%= coupon.id %>" method="post">
+    <div class="columns card">
+      <div class="column">
+        <div class="field">
+          <label class="label">Title</label>
+          <div class="control">
+            <input class="input" type="text" name="title" value="<%= coupon.title %>" required />
+          </div>
+        </div>
+  
+        <div class="field">
+          <label class="label">Restaurant</label>
+          <div class="control">
+            <input class="input" type="text" name="restaurant" value="<%= coupon.restaurant %>" required />
+          </div>
+        </div>
+  
+        <div class="columns">
+          <div class="column">
+            <label class="label">Region</label>
+            <div class="control">
+              <div class="select">
+                <select name="region" id="region">
+                  <option value="HK Island">HK Island</option>
+                  <option value="Kowloon">Kowloon</option>
+                  <option value="New Territories">New Territories</option>
+                </select>
+              </div>
+            </div>
+          </div>
+    
+          <div class="column">
+            <label class="label">Mall</label>
+            <div class="control">
+              <div class="select">
+                <select name="mall" id="mall">
+                  <option value="Avengers">Avengers</option>
+                  <option value="JLA">Justice League</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="field">
+          <label class="label">Image</label>
+          <div class="control">
+            <input class="input" type="text" name="image" value="<%= coupon.image %>" required />
+          </div>
+        </div>
+      </div>
+  
+      <div class="column">
+  
+        <div class="columns">
+          <div class="column">
+            <label class="label">Quota</label>
+            <div class="control">
+              <input class="input" type="number" name="quota" value=<%= coupon.quota %> required />
+            </div>
+          </div>
+    
+          <div class="column">
+            <label class="label">Coins</label>
+            <div class="control">
+              <input class="input" type="number" name="coins" value=<%= coupon.coins %> required />
+            </div>
+          </div>
+        </div>
+        
+  
+        <div class="field">
+          <label class="label">Expiry Date</label>
+          <div class="control">
+            <input class="input" type="date" name="exdate" value="<%= coupon.exdate %>" required />
+          </div>
+        </div>
+  
+        <div class="field">
+          <label class="label">Detail</label>
+          <div class="control">
+            <textarea class="textarea" name="detail"><%= coupon.detail %></textarea>
+          </div>
+        </div>
+  
+        <div class="columns">
+          <div class="column">
+            <div class="control">
+              <button id="updatebutton" class="button is-primary" type="submit">Update</button>
+            </div>
+          </div>
+    
+          <div class="column">
+            <div class="control">
+              <button class="button is-danger" type="button" onClick="deleteFunc()">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  
+  <script>
+      
+    var region = "<%= coupon.region %>";
+    var mall = "<%= coupon.mall %>";
+
+    var regionselect = document.getElementById("region").childNodes;
+    regionselect.forEach(function(option) {
+        if (option.value == region){
+            option.selected = true;
+        } 
+    });
+
+    function deleteFunc(){
+        var form = document.getElementById("updateform");
+        var temp = form.action;
+        form.action = "/coupon/delete/<%= coupon.id %>";
+        document.getElementById("updatebutton").click();
+    }
+    
+  </script>
