@@ -41,6 +41,10 @@ module.exports.routes = {
   // Delete
   'POST /coupon/delete/:id': 'CouponController.delete',
 
+  // Search
+  'GET /coupon/search': 'CouponController.search',
+  'POST /coupon/search': 'CouponController.search',
+
 
   /***************************************************************************
   *                                                                          *

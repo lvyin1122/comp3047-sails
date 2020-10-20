@@ -32,7 +32,7 @@ module.exports.bootstrap = async function() {
   }
 
   await Coupon.createEach([
-      { title: "50% discount on Supreme Seafood Feast (for 2 persons)", 
+      { title: "Kowloon1/750 coins/2020-12-31", 
         restaurant: "Mango Tree",
         region: "Kowloon",
         mall: "Elements",
@@ -42,34 +42,34 @@ module.exports.bootstrap = async function() {
         exdate: "2020-12-31",
         detail: "Orignal price: HK$790 per person."
       },
-      { title: "50% discount on Supreme Seafood Feast (for 2 persons)", 
+      { title: "Kowloon2/700 coins/2020-11-22", 
         restaurant: "Mango Tree",
         region: "Kowloon",
         mall: "Elements",
         image: "https://3o7tpx32lt6v2lcovs4a53lb-wpengine.netdna-ssl.com/wp-content/uploads/2013/02/383579_314631368577671_1289868602_n-500x500.jpg",
         quota: 500,
-        coins: 750,
-        exdate: "2020-12-31",
+        coins: 700,
+        exdate: "2020-11-22",
         detail: "Orignal price: HK$790 per person."
       },
-      { title: "50% discount on Supreme Seafood Feast (for 2 persons)", 
+      { title: "HKIsland1/800 coins/2020-12-21", 
         restaurant: "Mango Tree",
         region: "HK Island",
         mall: "Elements",
         image: "https://3o7tpx32lt6v2lcovs4a53lb-wpengine.netdna-ssl.com/wp-content/uploads/2013/02/383579_314631368577671_1289868602_n-500x500.jpg",
         quota: 500,
-        coins: 750,
-        exdate: "2020-12-31",
+        coins: 800,
+        exdate: "2020-12-21",
         detail: "Orignal price: HK$790 per person."
       },
-      { title: "50% discount on Supreme Seafood Feast (for 2 persons)", 
+      { title: "NT1/699 coins/2020-12-22", 
         restaurant: "Mango Tree",
         region: "New Territories",
         mall: "Elements",
         image: "https://3o7tpx32lt6v2lcovs4a53lb-wpengine.netdna-ssl.com/wp-content/uploads/2013/02/383579_314631368577671_1289868602_n-500x500.jpg",
         quota: 500,
-        coins: 750,
-        exdate: "2020-12-31",
+        coins: 699,
+        exdate: "2020-12-22",
         detail: "Orignal price: HK$790 per person."
       }
       

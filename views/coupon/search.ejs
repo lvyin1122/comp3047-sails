@@ -1,0 +1,157 @@
+<div class="content">
+    <p class="title is-size-1 has-text-weight-bold" style="font-family:'Candara'">Q-Pon</p>
+    <p class="subtitle is-size-4 has-text-weight-light">Redeem your coins for dining coupons.</p>
+</div>
+
+<div class="columns">
+    <div class="column">
+        <div class="columns">
+            <% coupons.forEach( function(coupon) { %>
+                <div class="column is-half">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                              <a href="/coupon/read/<%= coupon.id %>">
+                                <img src="<%= coupon.image %>" alt="Placeholder image">
+                              </a>
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                          <div class="media">
+                            <div class="content">
+                              <p class="title is-4"><a href="/coupon/read/<%= coupon.id %>"><%= coupon.restaurant %></a></p>
+                              <p class="subtitle is-6"><%= coupon.title %></p>
+                            </div>
+                          </div>      
+                          <div class="content">
+                            Coins: <%= coupon.coins %>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+    <div class="column">
+        <form>
+            <div class="field">
+                <label class="label">Region</label>
+                <div class="control">
+                  <div class="select">
+                    <select name="region">
+                      <option value="">Not Specified</option>
+                      <option value="HK Island">HK Island</option>
+                      <option value="Kowloon">Kowloon</option>
+                      <option value="New Territories">New Territories</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Min Coins</label>
+                <div class="control">
+                  <input class="input" type="number" name="min">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Max Coins</label>
+                <div class="control">
+                  <input class="input" type="number" name="max">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Valid Until</label>
+                <div class="control">
+                  <input class="input" type="date" name="exdate"/>
+                </div>
+            </div>
+
+            <div class="field is-grouped is-grouped-right">
+                <div class="control">
+                  <button class="button is-primary is-rounded" type="submit">Search</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<nav class="pagination" role="navigation" aria-label="pagination">
+    <a class="pagination-previous" id="previousButton">Previous</a>
+    <a class="pagination-next" id="nextButton">Next page</a>
+    <ul class="pagination-list">
+        <li>
+            <a class="pagination-link" id="firstLink">1</a>
+        </li>
+        <li>
+            <span class="pagination-ellipsis">&hellip;</span>
+        </li>
+        <li>
+            <a class="pagination-link" id="previousLink">45</a>
+        </li>
+        <li>
+            <a class="pagination-link is-current" id="currentLink">46</a>
+        </li>
+        <li>
+            <a class="pagination-link" id="nextLink">47</a>
+        </li>
+        <li>
+            <span class="pagination-ellipsis">&hellip;</span>
+        </li>
+        <li>
+            <a class="pagination-link" id="lastLink">86</a>
+        </li>
+    </ul>
+</nav>
+
+<script>
+    function setPagination() {
+
+        var previousButton = document.getElementById("previousButton");
+        var nextButton = document.getElementById("nextButton");
+        var currentLink = document.getElementById("currentLink");
+        var previousLink = document.getElementById("previousLink");
+        var nextLink = document.getElementById("nextLink");
+        var firstLink = document.getElementById("firstLink");
+        var lastLink = document.getElementById("lastLink");
+
+        var numOfRecords = parseInt("<%= numOfRecords %>");
+        var limit = 2;
+        var offset = Math.max(parseInt("<%= req.query.offset %>"), 0) || 0;
+
+        var baseUrl = "/coupon/search?<%- searchUrl %>offset=";
+
+        firstLink.href = baseUrl + 0;
+        previousButton.href = baseUrl + (offset - limit);
+        previousLink.href = baseUrl + (offset - limit);
+        currentLink.href = baseUrl + offset;
+        nextLink.href = baseUrl + (offset + limit);
+        nextButton.href = baseUrl + (offset + limit);
+        lastLink.href = baseUrl + (Math.ceil(numOfRecords / limit) - 1) * limit;
+              
+        var currentPageNumber = Math.floor(offset / limit) + 1;
+
+        previousLink.innerHTML = currentPageNumber - 1;
+        currentLink.innerHTML = currentPageNumber;
+        nextLink.innerHTML = currentPageNumber + 1;
+        lastLink.innerHTML = Math.ceil(numOfRecords / limit); 
+
+        if (offset < limit) {
+            previousButton.setAttribute("disabled", true);
+            previousButton.href = "";
+            previousLink.style.display = "none";
+        }
+
+        if (offset + limit >= numOfRecords) {
+            nextButton.setAttribute("disabled", true);
+            nextButton.href = "";
+            nextLink.style.display = "none";
+        }
+    }
+
+    setPagination();
+
+</script>
