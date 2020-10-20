@@ -112,51 +112,6 @@ module.exports = {
     // action - search
     search: async function(req, res) {
 
-        if (false) {
-            var limit = 2;
-            var offset = 0;
-
-            var whereClause = {};
-            var searchUrl = "";
-            
-            if (req.body.region) {
-                whereClause.region = req.body.region;
-                searchUrl += "region=" + req.body.region + "&";
-            }
-            if (req.body.exdate) {
-                whereClause.exdate = req.body.exdate;
-                searchUrl += "exdate=" + req.body.exdate + "&";
-            }
-            var parsedMin = parseInt(req.body.min);
-            if (!isNaN(parsedMin)) {
-                if (!whereClause.coins) whereClause.coins = {};
-                whereClause.coins['>='] = parsedMin;
-                searchUrl += "min=" + parsedMin.toString() + "&";
-            }
-            var parsedMax = parseInt(req.body.max);
-            if (!isNaN(parsedMax)) {
-                if (!whereClause.coins) whereClause.coins = {};
-                whereClause.coins['<='] = parsedMax;
-                searchUrl += "max=" + parsedMax.toString() + "&";
-            }
-
-            var thoseCoupons = await Coupon.find({
-                where: whereClause,
-                sort: 'exdate',
-                limit: limit,
-                skip: offset
-            });
-    
-            var count = await Coupon.count({
-                where: whereClause,
-            });
-     
-            return res.view('coupon/search', { coupons: thoseCoupons, numOfRecords: count, searchUrl: searchUrl});
-
-        }
-
-        if (req.method == "POST") req.query = req.body;
-
         // Pagination
         var limit = 2;
         // if (!req.query.offset) var
@@ -165,25 +120,30 @@ module.exports = {
         // Search
         var whereClause = {};
         var searchUrl = "";
+        var query = {};
     
         if (req.query.region) {
             whereClause.region = req.query.region;
+            query.region = req.query.region;
             searchUrl += "region=" + req.query.region + "&";
         }
         if (req.query.exdate) {
             whereClause.exdate = req.query.exdate;
+            query.exdate = req.query.exdate;
             searchUrl += "exdate=" + req.query.exdate + "&";
         }
         var parsedMin = parseInt(req.query.min);
         if (!isNaN(parsedMin)) {
             if (!whereClause.coins) whereClause.coins = {};
             whereClause.coins['>='] = parsedMin;
+            query.min = parsedMin;
             searchUrl += "min=" + parsedMin.toString() + "&";
         }
         var parsedMax = parseInt(req.query.max);
         if (!isNaN(parsedMax)) {
             if (!whereClause.coins) whereClause.coins = {};
             whereClause.coins['<='] = parsedMax;
+            query.max = parsedMax;
             searchUrl += "max=" + parsedMax.toString() + "&";
         }
         
@@ -198,7 +158,14 @@ module.exports = {
             where: whereClause,
         });
  
-        return res.view('coupon/search', { coupons: thoseCoupons, numOfRecords: count, searchUrl: searchUrl});
+        return res.view(
+            'coupon/search', 
+        { 
+            coupons: thoseCoupons, 
+            numOfRecords: count, 
+            searchUrl: searchUrl,
+            query: query
+        });
     },
 
 };

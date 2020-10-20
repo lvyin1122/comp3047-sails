@@ -27,7 +27,8 @@
           <label class="label">Region</label>
           <div class="control">
             <div class="select">
-              <select name="region">
+              <select name="region" onchange="regionSelected(this.value)" required>
+                <option value="">None</option>
                 <option value="HK Island">HK Island</option>
                 <option value="Kowloon">Kowloon</option>
                 <option value="New Territories">New Territories</option>
@@ -40,9 +41,7 @@
           <label class="label">Mall</label>
           <div class="control">
             <div class="select">
-              <select name="mall">
-                <option value="Avengers">Avengers</option>
-                <option value="JLA">Justice League</option>
+              <select id="mall" name="mall" disabled>
               </select>
             </div>
           </div>
@@ -98,3 +97,50 @@
     </div>
   </div>
 </form>
+
+<script>
+  var hkisland = ["IFC Mall", "Pacific Place", "Times Square"];
+  var kowloon = ["Elements", "Harbour City", "Festival Walk", "MegaBox", "APM"];
+  var nt = ["New Town Plaza", "Tsuen Wan Plaza"];
+
+  function regionSelected(region){
+    var mallElem = document.getElementById("mall");
+    mallElem.options.length = 0;
+
+    if(region == "HK Island") {
+
+      hkisland.forEach(function(item) {
+        var option = document.createElement("option");
+        option.text = item;
+        option.value = item;
+        mallElem.add(option);
+      });
+
+      mallElem.disabled = false;
+
+    } else if(region == "Kowloon") {
+      
+      kowloon.forEach(function(item) {
+        var option = document.createElement("option");
+        option.text = item;
+        option.value = item;
+        mallElem.add(option);
+      });
+
+      mallElem.disabled = false;
+
+    } else if(region == "New Territories"){
+      nt.forEach(function(item) {
+        var option = document.createElement("option");
+        option.text = item;
+        option.value = item;
+        mallElem.add(option);
+      });
+
+      mallElem.disabled = false;
+
+    }else {
+      mallElem.disabled = true;
+    }
+  }
+</script>
