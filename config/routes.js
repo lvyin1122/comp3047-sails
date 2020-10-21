@@ -43,7 +43,6 @@ module.exports.routes = {
 
   // Search
   'GET /coupon/search': 'CouponController.search',
-  'POST /coupon/search': 'CouponController.search',
 
 
   /***************************************************************************

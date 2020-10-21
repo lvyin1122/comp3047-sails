@@ -11,23 +11,25 @@ module.exports = {
 
         var hkisland = await Coupon.find({
             where: {region: "HK Island"},
-            sort: "exdate"
+            sort: "exdate",
+            limit: 2
         });
 
         var kowloon = await Coupon.find({
             where: {region: "Kowloon"},
-            sort: "exdate"
-
+            sort: "exdate",
+            limit: 2
         });
 
         var nt = await Coupon.find({
             where: {region: "New Territories"},
-            sort: "exdate"
+            sort: "exdate",
+            limit: 2
         });
 
-        hkisland = hkisland.slice(0, 2);
-        kowloon = kowloon.slice(0, 2);
-        nt = nt.slice(0, 2);
+        // hkisland = hkisland.slice(0, 2);
+        // kowloon = kowloon.slice(0, 2);
+        // nt = nt.slice(0, 2);
         
         return res.view(
             'coupon/home', 
