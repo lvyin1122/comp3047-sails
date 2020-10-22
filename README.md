@@ -1,20 +1,16 @@
-# midterm-project
+# Project milestone -Sails
 
-a [Sails v1](https://sailsjs.com) application
+Name: Wang Heyu
 
+SID: 17251133
 
-### Links
-
-+ [Sails framework documentation](https://sailsjs.com/get-started)
-+ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
-+ [Community support options](https://sailsjs.com/support)
-+ [Professional / enterprise options](https://sailsjs.com/enterprise)
+Github account: lvyin1122
 
 
-### Version info
+### Note
 
-This app was originally generated on Sun Oct 18 2020 17:37:22 GMT+0800 (GMT+08:00) using Sails v1.3.1.
+Due to the CRLF/LF issue, this app may not able to be run on platforms other than Windows.
+
 
 <!-- Internally, Sails used [`sails-generate@2.0.0`](https://github.com/balderdashy/sails-generate/tree/v2.0.0/lib/core-generators/new). -->
 
