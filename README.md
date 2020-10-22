@@ -9,7 +9,7 @@ Github account: lvyin1122
 
 ### Note
 
-Due to the CRLF/LF issue, this app may not able to be run on platforms other than Windows.
+Due to the CRLF/LF issue, this app may not be able to run on platforms other than Windows.
 
 
 <!-- Internally, Sails used [`sails-generate@2.0.0`](https://github.com/balderdashy/sails-generate/tree/v2.0.0/lib/core-generators/new). -->
