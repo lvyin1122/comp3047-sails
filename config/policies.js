@@ -16,6 +16,12 @@ module.exports.policies = {
   * (`true` allows public access)                                            *
   *                                                                          *
   ***************************************************************************/
+  CouponController: {
+    create: 'isAdmin',
+    admin: 'isAdmin',
+    update: 'isAdmin',
+    delete: 'isAdmin'
+  }
 
   // '*': true,
 

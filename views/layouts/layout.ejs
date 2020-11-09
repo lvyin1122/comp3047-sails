@@ -109,14 +109,27 @@
 
         <div class="navbar-end">
           <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light">
-                Log in
-              </a>
-            </div>
+            
+            <% if (!req.session.username) { %>
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light" href="/user/login">
+                  Log in
+                </a>
+              </div>
+            <% } else { %>
+              <div class="buttons">
+                <p class="buttons">
+                  Hi, <%= req.session.username %>
+                </p>
+                <a class="button is-light" href="/user/login">
+                  Log out
+                </a>
+              </div>
+            <% } %>
+      
           </div>
         </div>
       </div>
