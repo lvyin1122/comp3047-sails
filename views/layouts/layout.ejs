@@ -121,12 +121,14 @@
               </div>
             <% } else { %>
               <div class="buttons">
-                <p class="buttons">
+                <p>
                   Hi, <%= req.session.username %>
                 </p>
-                <a class="button is-light" href="/user/login">
-                  Log out
-                </a>
+                <form action="/user/logout" method="POST">
+                  <button class="button is-danger">
+                    Log out
+                  </button>
+                </form>
               </div>
             <% } %>
       
@@ -211,6 +213,27 @@
       defer
       src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
     ></script>
+
+    <script>
+      async function submitForm(formElem) {
+    
+          var response = await fetch(formElem.action, {
+              method: formElem.method,
+              body: new FormData(formElem),
+          });
+    
+          if (response.ok) {
+              var user = await response.json();
+              alert("Welcome back, " + user.username);
+              location.reload(true);
+          } else if (response.status == 401) {
+              var msg = await response.json();
+              alert(msg);
+          } else {
+              alert(response.statusText);
+          }
+      };
+    </script>
 
     
   </body>

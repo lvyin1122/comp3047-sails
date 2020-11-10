@@ -13,15 +13,25 @@ module.exports = {
     //  ╠═╝╠╦╝║║║║║ ║ ║╚╗╔╝║╣ ╚═╗
     //  ╩  ╩╚═╩╩ ╩╩ ╩ ╩ ╚╝ ╚═╝╚═╝
     username: {
-      type: "string"
+      type: "string",
+      unique: true,
+      required: true
     },
 
     uid: {
-      type: "string"
+      type: "string",
+      unique: true,
+      required: true
     },
 
     password: {
       type: "string"
+    },
+
+    role: {
+      type: 'string',
+      isIn: ['admin', 'member', 'visitor'],
+      defaultsTo: 'visitor'
     },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
@@ -32,6 +42,11 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
+
+    coupons: {
+      collection: 'Coupon',
+      via: 'holders'
+    },
 
   },
 
