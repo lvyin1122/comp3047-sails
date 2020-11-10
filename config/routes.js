@@ -44,6 +44,9 @@ module.exports.routes = {
   // Search
   'GET /coupon/search': 'CouponController.search',
 
+  // Redeem
+  'POST /coupon/redeem': 'CouponController.redeem',
+
   // User
   'GET /user': 'UserController.login',
   'GET /user/login': 'UserController.login',

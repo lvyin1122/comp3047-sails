@@ -18,12 +18,6 @@ module.exports = {
       required: true
     },
 
-    uid: {
-      type: "string",
-      unique: true,
-      required: true
-    },
-
     password: {
       type: "string"
     },
