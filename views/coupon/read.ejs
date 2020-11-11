@@ -26,17 +26,34 @@
             <%= coupon.detail %>
           </li>
         </ul>
-        <button type="button" class="button is-primary" onclick="redeemCoupon('<%= coupon.id %>')">Redeem</button>
-    </div>
+      </div>
+      <div class="buttons is-centered" id="btn1">
+        <button type="button" class="button is-link" onclick="redeemCoupon('<%= coupon.id %>')">Redeem</button>
+      </div>
   </div>
 </div>
 
 <script>
+  async function setButton(){
+
+    var response = await fetch("/user/" + "<%= req.session.uid %>" + "/coupon/" + "<%= coupon.id %>", {
+        method: "GET"
+    });
+
+    if (!response.ok) document.getElementById("btn1").remove();
+  
+  }
+
+  setButton();
+
+</script>
+
+<script>
   async function redeemCoupon(id) {
-      var r = confirm("Confirm Delete?");
+      var r = confirm("Confirm Redeem?");
       
       if (r) {
-          var response = await fetch("/person/delete/" + id, {
+          var response = await fetch("/user/" + "<%= req.session.uid %>" + "/coupons/add/" + "<%= coupon.id %>", {
               method: "POST"
           });
 
@@ -44,11 +61,12 @@
               var html = await response.text();
               alert(html);
           } else {
-              alert(response.status + ": " + response.statusText);
+              alert(response);
           }
 
       } else {
           alert("cancelled");
       }
+      location.reload(true);
   };
 </script>

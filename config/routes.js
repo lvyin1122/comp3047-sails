@@ -45,13 +45,21 @@ module.exports.routes = {
   'GET /coupon/search': 'CouponController.search',
 
   // Redeem
-  'POST /coupon/redeem': 'CouponController.redeem',
+  'GET /user/redeem': 'UserController.redeem',
+  // 'POST /coupon/redeem': 'CouponController.redeem',
 
   // User
   'GET /user': 'UserController.login',
   'GET /user/login': 'UserController.login',
   'POST /user/login': 'UserController.login',
   'POST /user/logout': 'UserController.logout',
+
+  // Associations
+  'GET /coupon/:id/holders': 'CouponController.populate',
+  'GET /user/:id/coupons': 'UserController.populate',
+  'POST /user/:id/coupons/add/:fk': 'UserController.add',
+  'POST /user/:id/coupons/remove/:fk': 'UserController.remove',
+  'GET /user/:id/coupon/:fk': 'UserController.ifAdded',
 
 
   /***************************************************************************

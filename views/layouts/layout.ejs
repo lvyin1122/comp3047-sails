@@ -121,9 +121,9 @@
               </div>
             <% } else { %>
               <div class="buttons">
-                <p>
+                <a href="/user/<%= req.session.uid %>/coupons">
                   Hi, <%= req.session.username %>
-                </p>
+                </a>
                 <form action="/user/logout" method="POST">
                   <button class="button is-danger">
                     Log out

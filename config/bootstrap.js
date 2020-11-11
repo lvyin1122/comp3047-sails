@@ -9,6 +9,9 @@
  * https://sailsjs.com/config/bootstrap
  */
 
+// const Coupon = require('../api/models/Coupon');
+// const User = require('../api/models/User');
+
 module.exports.bootstrap = async function () {
 
   // By convention, this is a good place to set up fake data during development.
@@ -105,9 +108,22 @@ module.exports.bootstrap = async function () {
 
     await User.createEach([
       { username: "admin", password: hash, role: "admin" },
-      { username: "boss", password: hash, role: "member" }
+      { username: "Member1", password: hash, role: "member", coins: 50},
+      { username: "Member2", password: hash, role: "member", coins: 5000},
+      { username: "Visitor1", password: hash, role: "visitor" },
+      { username: "Visitor2", password: hash},
       // etc.
     ]);
+
+    const coupon1 = await Coupon.findOne({title: "Simply receive a complimentary drink"});
+    const coupon2 = await Coupon.findOne({title: "50% discount on Supreme Seafood Feast (for 2 persons)"});
+    const admin = await User.findOne({username: "admin"});
+    const member1 = await User.findOne({username: "Member1"});
+    const member2 = await User.findOne({username: "Member1"});
+
+    await User.addToCollection(admin.id, 'coupons').members(coupon1.id);
+    await User.addToCollection(member1.id, 'coupons').members([coupon1.id, coupon2.id]);
+    await User.addToCollection(member2.id, 'coupons').members([coupon2.id]);
   }
 
 };

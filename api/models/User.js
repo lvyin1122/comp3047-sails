@@ -27,6 +27,10 @@ module.exports = {
       isIn: ['admin', 'member', 'visitor'],
       defaultsTo: 'visitor'
     },
+    
+    coins: {
+      type: "number",
+    },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗

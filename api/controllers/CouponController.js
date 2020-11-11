@@ -170,5 +170,23 @@ module.exports = {
         });
     },
 
+    populate: async function (req, res) {
+
+        var coupon = await Coupon.findOne(req.params.id).populate("holders");
+    
+        if (!coupon) return res.notFound();
+    
+        return res.json(coupon);
+    },
+
+    redeem: async function (req, res) {
+
+        var coupon = await Coupon.findOne(req.params.id).populate("holders");
+    
+        if (!coupon) return res.notFound();
+    
+        return res.json(coupon);
+    },
+
 };
 

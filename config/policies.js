@@ -23,6 +23,8 @@ module.exports.policies = {
     delete: 'isAdmin'
   }
 
+  
+
   // '*': true,
 
 };
