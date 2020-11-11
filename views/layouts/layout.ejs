@@ -79,13 +79,21 @@
             Search
           </a>
 
-          <a class="navbar-item" href="/coupon/create">
-            Create
-          </a>
+          <% if (req.session.role == 'admin') { %>
+            <a class="navbar-item" href="/coupon/create">
+              Create
+            </a>
 
-          <a class="navbar-item" href="/coupon/admin">
-            Admin
-          </a>
+            <a class="navbar-item" href="/coupon/admin">
+              Admin
+            </a>
+          <% } %>
+
+          <% if (req.session.role == 'member') { %>
+            <a class="navbar-item" href="/user/redeem">
+              My Redeemed Coupons
+            </a>
+          <% } %>
 
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">

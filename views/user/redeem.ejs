@@ -1,0 +1,38 @@
+<div class="content">
+    <p class="title is-size-1 has-text-weight-bold" style="font-family:'Candara'">Q-Pon</p>
+    <p class="subtitle is-size-4 has-text-weight-light">Redeem your coins for dining coupons.</p>
+</div>
+
+<div class="content">
+    <p class="subtitle is-size-5 has-text-weight-bold">Current Balance: <%= coins%></p>
+    <p class="subtitle is-size-4 has-text-weight-bold">Redeemed Coupons: </p>
+</div>
+
+<div class="columns mt-4 is-multiline">
+    
+    <% coupons.forEach( function(coupon) { %>
+        <div class="column is-one-third">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                          <a href="/coupon/read/<%= coupon.id %>">
+                            <img src="<%= coupon.image %>" alt="Placeholder image">
+                          </a>
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                      <div class="media">
+                        <div class="content">
+                          <p class="title is-4"><a href="/coupon/read/<%= coupon.id %>"><%= coupon.restaurant %></a></p>
+                          <p class="subtitle is-6"><%= coupon.title %></p>
+                        </div>
+                      </div>      
+                      <div class="content">
+                        Coins: <%= coupon.coins %>
+                      </div>
+                    </div>
+                </div>
+        </div>
+    <% }); %>
+
+</div>

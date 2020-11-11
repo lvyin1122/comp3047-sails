@@ -97,7 +97,7 @@ module.exports = {
             .set({
                 quota: thatCoupon.quota - 1
             });
-            
+
         await User.updateOne(req.params.id)
             .set({
                 coins: thatUser.coins - thatCoupon.coins
@@ -121,6 +121,15 @@ module.exports = {
         await User.removeFromCollection(req.params.id, "coupons").members(req.params.fk);
 
         return res.ok();
+    },
+
+    redeem: async function (req, res) {
+
+        var user = await User.findOne(req.session.uid).populate("coupons");
+    
+        if (!user) return res.notFound();
+    
+        return res.view('user/redeem', { coupons: user.coupons, coins: user.coins});
     },
 
 };

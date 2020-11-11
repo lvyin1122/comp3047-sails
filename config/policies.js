@@ -21,9 +21,13 @@ module.exports.policies = {
     admin: 'isAdmin',
     update: 'isAdmin',
     delete: 'isAdmin'
+  },
+
+  UserController: {
+    
   }
 
-  
+
 
   // '*': true,
 

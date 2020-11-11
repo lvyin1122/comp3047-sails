@@ -4,12 +4,13 @@
 </div>
 
 <div class="card table-container">
-    <table class="table is-bordered is-hoverable is-fullwidth">
+    <table id="t1" class="table is-bordered is-hoverable is-fullwidth">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Title</th>
                 <th>Restaurant</th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -20,10 +21,42 @@
                     <td><%= coupon.title %></td>
                     <td><%= coupon.restaurant %></td>
                     <td><a href="/coupon/update/<%= coupon.id %>">Update</a></td>
+                    <td><a href="#" onclick="checkHolders(<%= coupon.id %>);return false">Redeemed Members</a></td>
                 </tr>
             <% }); %>
         </tbody>
     </table>
 </div>    
+
+<script>
+    async function checkHolders(id) {
+
+        var response = await fetch("/coupon/" + id.toString() + "/holders", {
+            method: "GET"
+        });
+  
+        if (response.ok) {
+            
+            var coupon = await response.json();
+
+            var users = coupon.holders
+            
+            var dynamicCode = '<thead><tr><th>ID</th><th>Username</th><th>Coins</th></tr></thead>';
+
+            dynamicCode += '<tbody>';
+            
+            users.forEach(function (user) {
+                dynamicCode += "<tr><td>" + user.id + "</td><td>" + user.username + "</td><td>" + user.coins.toString() + "</td></tr>";
+            });
+
+            dynamicCode += '</tbody>';
+            
+            document.querySelector("#t1").innerHTML = dynamicCode;
+            
+        } else {
+            alert(response.status + ": " + response.statusText);
+        }
+    };
+</script>
 
 
