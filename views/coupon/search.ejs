@@ -5,7 +5,7 @@
 
 <div class="columns">
     <div class="column is-two-thirds">
-        <div class="columns">
+        <div id="c1" class="columns">
             <% coupons.forEach( function(coupon) { %>
                 <div class="column is-half">
                     <div class="card">
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="column">
-        <form action="/coupon/search/" method="GET">
+        <form action="/coupon/search/" method="GET" onsubmit="submitSearch(this);return false">
             <div class="field">
                 <label class="label">Region</label>
                 <div class="control">
@@ -65,7 +65,7 @@
             <div class="field">
                 <label class="label">Valid Until</label>
                 <div class="control">
-                  <input class="input" type="date" name="exdate" value=<%= query.exdate%>>
+                  <input class="input" type="date" name="exdate" value=<%= query.exdate %>>
                 </div>
             </div>
 
@@ -108,6 +108,18 @@
 </nav>
 
 <script>
+    async function submitSearch(formElem) {
+
+        var query = "&";
+
+        query += new URLSearchParams(new FormData(formElem)).toString();
+
+        fetchPage(2, 0, query);
+
+    };
+</script>
+
+<script>
 
     // Script - Display original records
     var region = "<%= query.region %>";
@@ -118,10 +130,11 @@
             option.selected = true;
         } 
     });
+</script>
 
+<script>
     // Function - Pagination
-    function setPagination() {
-
+    function setPagination(limit, offset, numOfRecords, query) {
         var previousButton = document.getElementById("previousButton");
         var nextButton = document.getElementById("nextButton");
         var currentLink = document.getElementById("currentLink");
@@ -129,41 +142,94 @@
         var nextLink = document.getElementById("nextLink");
         var firstLink = document.getElementById("firstLink");
         var lastLink = document.getElementById("lastLink");
-
-        var numOfRecords = parseInt("<%= numOfRecords %>");
-        var limit = 2;
-        var offset = Math.max(parseInt("<%= req.query.offset %>"), 0) || 0;
-
-        var baseUrl = "/coupon/search?<%- searchUrl %>offset=";
-
-        firstLink.href = baseUrl + 0;
-        previousButton.href = baseUrl + (offset - limit);
-        previousLink.href = baseUrl + (offset - limit);
-        currentLink.href = baseUrl + offset;
-        nextLink.href = baseUrl + (offset + limit);
-        nextButton.href = baseUrl + (offset + limit);
-        lastLink.href = baseUrl + (Math.ceil(numOfRecords / limit) - 1) * limit;
-              
+        // var numOfRecords = total;
+        // var limit = Math.max(parseInt("<%= req.query.limit %>"), 2) || 2;
+        // var offset = Math.max(parseInt("<%= req.query.offset %>"), 0) || 0;
+        // var baseUrl = "/person/paginate?limit=" + limit + "&offset=";
+        // firstLink.href = baseUrl + 0;
+        // previousButton.href = baseUrl + (offset - limit);
+        // previousLink.href = baseUrl + (offset - limit);
+        // currentLink.href = baseUrl + offset;
+        // nextLink.href = baseUrl + (offset + limit);
+        // nextButton.href = baseUrl + (offset + limit);
+        // lastLink.href = baseUrl + (Math.ceil(numOfRecords / limit) - 1) * limit;
+        
+        firstLink.onclick = function () { fetchPage(limit, 0, query) };
+        previousButton.onclick = function () { fetchPage(limit, offset - limit, query) };
+        previousLink.onclick = function () { fetchPage(limit, offset - limit, query) };
+        currentLink.onclick = function () { fetchPage(limit, offset, query) };
+        nextLink.onclick = function () { fetchPage(limit, offset + limit, query) };
+        nextButton.onclick = function () { fetchPage(limit, offset + limit, query) };
+        lastLink.onclick = function () { fetchPage(limit, (Math.ceil(numOfRecords / limit) - 1) * limit, query) };;
         var currentPageNumber = Math.floor(offset / limit) + 1;
-
         previousLink.innerHTML = currentPageNumber - 1;
         currentLink.innerHTML = currentPageNumber;
         nextLink.innerHTML = currentPageNumber + 1;
         lastLink.innerHTML = Math.ceil(numOfRecords / limit); 
-
         if (offset < limit) {
             previousButton.setAttribute("disabled", true);
-            previousButton.href = "";
             previousLink.style.display = "none";
+        } else {
+            previousButton.removeAttribute("disabled");
+            previousLink.style.display = "block";
         }
-
         if (offset + limit >= numOfRecords) {
             nextButton.setAttribute("disabled", true);
-            nextButton.href = "";
+            // nextButton.href = "";
             nextLink.style.display = "none";
+        } else {
+            nextButton.removeAttribute("disabled");
+            nextLink.style.display = "block";
         }
     }
+    setPagination(2, 0, <%= numOfRecords %>, "<%= searchUrl %>");
 
-    setPagination();
+</script>
+
+<script>
+    async function fetchPage(limit, offset, query) {
+        
+        var response = await fetch("/coupon/search?limit=" + limit + "&offset=" + offset.toString() + query.toString());
+
+        if (response.ok) {
+            
+            var response = await response.json();
+
+            var coupons = response.coupons;
+            
+            var numOfRecords = response.numOfRecords;
+
+            var dynamicCode = "";
+
+            coupons.forEach(function(coupon) {
+                dynamicCode += '<div class="column is-half"><div class="card"><div class="card-image"><figure class="image is-4by3"><a href="/coupon/read/';
+                dynamicCode += coupon.id.toString() + '">';
+                dynamicCode += '<img src="' + coupon.image + '" alt="Placeholder image"></a></figure></div>';
+                dynamicCode += '<div class="card-content"><div class="media"><div class="content"><p class="title is-4"><a href="/coupon/read/';
+                dynamicCode += coupon.id.toString() + '">';
+                dynamicCode += coupon.restaurant + '</a></p>';
+                dynamicCode += '<p class="subtitle is-6">' + coupon.title + '</p>';
+                dynamicCode += '</div></div>';
+                dynamicCode += '<div class="content">';
+                dynamicCode += "Coins: " + coupon.coins.toString() + '</div>';
+                dynamicCode += "</div></div></div>";
+            });
+            
+            document.querySelector("#c1").innerHTML = dynamicCode;
+
+            
+            //var dynamicCode = '<table class="table is-bordered is-striped is-fullwidth">';
+            
+            //persons.forEach(function (person) {
+            //    dynamicCode += "<tr><td>" + person.name + "</td><td>" + person.age + "</td></tr>";
+            //});
+            
+            //document.querySelector("#p2").innerHTML = dynamicCode + "</table>";
+            
+            setPagination(limit, offset, numOfRecords, query);
+        } else {
+            alert(response.status + ": " + response.statusText);
+        }
+    };
 
 </script>
