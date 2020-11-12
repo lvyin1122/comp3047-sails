@@ -114,7 +114,7 @@ module.exports = {
     // action - search
     search: async function(req, res) {
 
-        if(req.wantsJSON){
+    
             // Pagination
             var limit = 2;
             // if (!req.query.offset) var
@@ -161,60 +161,14 @@ module.exports = {
                 where: whereClause,
             });
 
+        if(req.wantsJSON){
             return res.json({ 
                 coupons: thoseCoupons, 
                 numOfRecords: count, 
-                searchUrl: searchUrl,
                 query: query
             });
 
         } else {
-            // Pagination
-            var limit = 2;
-            // if (!req.query.offset) var
-            var offset = Math.max(req.query.offset, 0) || 0;
-    
-            // Search
-            var whereClause = {};
-            var searchUrl = "&";
-            var query = {};
-        
-            if (req.query.region) {
-                whereClause.region = req.query.region;
-                query.region = req.query.region;
-                searchUrl += "region=" + req.query.region + "&";
-            }
-            if (req.query.exdate) {
-                whereClause.exdate = req.query.exdate;
-                query.exdate = req.query.exdate;
-                searchUrl += "exdate=" + req.query.exdate + "&";
-            }
-            var parsedMin = parseInt(req.query.min);
-            if (!isNaN(parsedMin)) {
-                if (!whereClause.coins) whereClause.coins = {};
-                whereClause.coins['>='] = parsedMin;
-                query.min = parsedMin;
-                searchUrl += "min=" + parsedMin.toString() + "&";
-            }
-            var parsedMax = parseInt(req.query.max);
-            if (!isNaN(parsedMax)) {
-                if (!whereClause.coins) whereClause.coins = {};
-                whereClause.coins['<='] = parsedMax;
-                query.max = parsedMax;
-                searchUrl += "max=" + parsedMax.toString() + "&";
-            }
-            
-            var thoseCoupons = await Coupon.find({
-                where: whereClause,
-                sort: 'exdate',
-                limit: limit,
-                skip: offset
-            });
-    
-            var count = await Coupon.count({
-                where: whereClause,
-            });
-            
             return res.view(
                 'coupon/search', 
             { 

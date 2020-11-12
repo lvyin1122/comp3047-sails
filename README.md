@@ -7,10 +7,27 @@ SID: 17251133
 Github account: lvyin1122
 
 
-### Note
+### Problems
 
-Due to the CRLF/LF issue, this app may not be able to run on platforms other than Windows.
+1. Due to the CRLF/LF issue, this app may not be able to run on platforms other than Windows.
 
+2. The search-related functions are a bit tedious and need further optimization, but it works well with the requirements at the moment.
+
+3. Sometimes an unknown error may occur after choosing `alter` mode when initiating the sails.js. Try drop shall solve this problem.
+
+### Testing
+
+There are 5 users you can choose to log in with as testing cases. All the passwords are 123456.
+
+- `admin`
+- `Member1` with 50 coins and some redeemed coupons
+- `Member2` with 5000 coins
+- `Visitor1`
+- `Visitor2`
+
+### Notes
+
+The system is tested to meet all the requirements. If there is any technical defect, please let me know :)
 
 <!-- Internally, Sails used [`sails-generate@2.0.0`](https://github.com/balderdashy/sails-generate/tree/v2.0.0/lib/core-generators/new). -->
 
