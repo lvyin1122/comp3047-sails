@@ -97,7 +97,7 @@ module.exports = {
 
             if (!updatedCoupon) return res.notFound();
 
-            return res.ok();
+            return res.redirect("/coupon/update/" + req.params.id);;
         }
     },
 
@@ -108,7 +108,7 @@ module.exports = {
     
         if (!deletedCoupon) return res.notFound();
     
-        return res.ok(); 
+        return res.redirect("/coupon/admin");; 
     },
 
     // action - search

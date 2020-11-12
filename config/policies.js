@@ -24,7 +24,8 @@ module.exports.policies = {
   },
 
   UserController: {
-    
+    add: 'isMember',
+    remove: 'isMember',
   }
 
 

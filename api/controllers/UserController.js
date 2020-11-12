@@ -104,7 +104,7 @@ module.exports = {
             });
 
 
-        return res.ok();
+        return res.ok("success");
     },
 
     remove: async function (req, res) {

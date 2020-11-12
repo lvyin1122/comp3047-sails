@@ -27,8 +27,8 @@
           </li>
         </ul>
       </div>
-      <div class="buttons is-centered" id="btn1">
-        <button type="button" class="button is-link" onclick="redeemCoupon('<%= coupon.id %>')">Redeem</button>
+      <div class="buttons is-centered">
+        <button  id="btn1" type="button" class="button is-link" onclick="redeemCoupon('<%= coupon.id %>')">Redeem</button>
       </div>
   </div>
 </div>
@@ -36,12 +36,16 @@
 <script>
   async function setButton(){
 
+    if("<%= req.session.role %>" != "member"){
+      document.getElementById("btn1").disabled = true;
+      return;
+    }
+
     var response = await fetch("/user/" + "<%= req.session.uid %>" + "/coupon/" + "<%= coupon.id %>", {
         method: "GET"
     });
 
     if (!response.ok) document.getElementById("btn1").remove();
-  
   }
 
   setButton();
@@ -58,14 +62,13 @@
           });
 
           if (response.ok) {
-              var html = await response.text();
-              alert(html);
+              alert("Succefully redeemed.");
           } else {
-              alert(response);
+              alert("Bad request");
           }
 
       } else {
-          alert("cancelled");
+          alert("Cancelled");
       }
       location.reload(true);
   };
