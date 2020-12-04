@@ -61,7 +61,7 @@ module.exports = {
 
     ifAdded: async function (req, res) {
         
-        var thatCoupon = await Coupon.findOne(req.params.fk).populate("holders", { id: req.params.id });
+        var thatCoupon = await Coupon.findOne(req.params.fk).populate("holders", { id: req.session.uid });
 
         if (!thatCoupon) return res.status(404).json("Coupon not found.");
 
@@ -74,11 +74,11 @@ module.exports = {
 
     add: async function (req, res) {
 
-        var thatUser = await User.findOne(req.params.id);
+        var thatUser = await User.findOne(req.session.uid);
 
         if (!thatUser) return res.status(404).json("User not found.");
 
-        var thatCoupon = await Coupon.findOne(req.params.fk).populate("holders", { id: req.params.id });
+        var thatCoupon = await Coupon.findOne(req.params.fk).populate("holders", { id: req.session.uid });
 
         if (!thatCoupon) return res.status(404).json("Coupon not found.");
 
@@ -91,14 +91,14 @@ module.exports = {
         if (thatCoupon.coins > thatUser.coins)
             return res.status(409).json("Your coins are not enough.");
 
-        await User.addToCollection(req.params.id, "coupons").members(req.params.fk);
+        await User.addToCollection(req.session.uid, "coupons").members(req.params.fk);
 
         await Coupon.updateOne(req.params.fk)
             .set({
                 quota: thatCoupon.quota - 1
             });
 
-        await User.updateOne(req.params.id)
+        await User.updateOne(req.session.uid)
             .set({
                 coins: thatUser.coins - thatCoupon.coins
             });
@@ -109,16 +109,16 @@ module.exports = {
 
     remove: async function (req, res) {
 
-        if (!await User.findOne(req.params.id)) return res.status(404).json("User not found.");
+        if (!await User.findOne(req.session.uid)) return res.status(404).json("User not found.");
 
-        var thatCoupon = await Coupon.findOne(req.params.fk).populate("holders", { id: req.params.id });
+        var thatCoupon = await Coupon.findOne(req.params.fk).populate("holders", { id: req.session.uid });
 
         if (!thatCoupon) return res.status(404).json("Coupon not found.");
 
         if (thatCoupon.holders.length == 0)
             return res.status(409).json("Nothing to delete.");    // conflict
 
-        await User.removeFromCollection(req.params.id, "coupons").members(req.params.fk);
+        await User.removeFromCollection(req.session.uid, "coupons").members(req.params.fk);
 
         return res.ok();
     },

@@ -9,6 +9,11 @@ module.exports = {
     // action - home
     home: async function (req, res) {
 
+        if(req.wantsJSON) {
+            var allcoupons = await Coupon.find();
+            return res.json(allcoupons);
+        }
+
         var hkisland = await Coupon.find({
             where: {region: "HK Island"},
             sort: "exdate",

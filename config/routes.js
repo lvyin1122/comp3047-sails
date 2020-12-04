@@ -57,9 +57,9 @@ module.exports.routes = {
   // Associations
   'GET /coupon/:id/holders': 'CouponController.populate',
   'GET /user/:id/coupons': 'UserController.populate',
-  'POST /user/:id/coupons/add/:fk': 'UserController.add',
-  'POST /user/:id/coupons/remove/:fk': 'UserController.remove',
-  'GET /user/:id/coupon/:fk': 'UserController.ifAdded',
+  'POST /user/coupons/add/:fk': 'UserController.add',
+  'POST /user/coupons/remove/:fk': 'UserController.remove',
+  'GET /user/coupon/:fk': 'UserController.ifAdded',
 
 
   /***************************************************************************

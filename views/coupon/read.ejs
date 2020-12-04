@@ -41,7 +41,7 @@
       return;
     }
 
-    var response = await fetch("/user/" + "<%= req.session.uid %>" + "/coupon/" + "<%= coupon.id %>", {
+    var response = await fetch("/user/coupon/" + "<%= coupon.id %>", {
         method: "GET"
     });
 
@@ -57,7 +57,7 @@
       var r = confirm("Confirm Redeem?");
       
       if (r) {
-          var response = await fetch("/user/" + "<%= req.session.uid %>" + "/coupons/add/" + "<%= coupon.id %>", {
+          var response = await fetch("/user/coupons/add/" + "<%= coupon.id %>", {
               method: "POST"
           });
 
