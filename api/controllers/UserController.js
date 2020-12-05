@@ -129,7 +129,11 @@ module.exports = {
     
         if (!user) return res.notFound();
     
-        return res.view('user/redeem', { coupons: user.coupons, coins: user.coins});
+        if(req.wantsJSON) {
+            return res.json(user.coupons);
+        }else {
+            return res.view('user/redeem', { coupons: user.coupons, coins: user.coins});
+        }
     },
 
 };
