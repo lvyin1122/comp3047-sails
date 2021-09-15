@@ -1,12 +1,5 @@
 # Project milestone -Sails
 
-Name: Wang Heyu
-
-SID: 17251133
-
-Github account: lvyin1122
-
-
 ### Problems
 
 1. Due to the CRLF/LF issue, this app may not be able to run on platforms other than Windows.
